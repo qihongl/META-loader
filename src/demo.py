@@ -29,8 +29,6 @@ meta.get_video(video_id)
 X_list, llc_name_list = meta.get_data(to_torch=True)
 print(len(X_list))
 print(len(llc_name_list))
-
-
 # visualize
 for i in range(len(llc_name_list)):
     llc_name = llc_name_list[i]
@@ -40,6 +38,20 @@ for i in range(len(llc_name_list)):
 
 '''low level event class frequency'''
 meta.show_llc_frequency()
+
+'''an example data matrix'''
+f, ax = plt.subplots(1,1)
+i = 0
+sns.heatmap(X_list[i])
+ax.set_xlabel('Feature dim')
+ax.set_ylabel('Time')
+ax.set_title(llc_name_list[i])
+
+'''show RDM '''
+f, ax = plt.subplots(1,1, figsize=(5,4))
+sns.heatmap(np.corrcoef(meta.llc_mean_pattern), square=True, ax=ax)
+ax.set_xlabel('low level event type')
+ax.set_ylabel('low level event type')
 
 '''plot hier'''
 # remove multi-chapter action (mca)
@@ -51,12 +63,6 @@ meta.make_sns_clustermap(mean_pattern, yticklabels, metric)
 
 linked = linkage(mean_pattern, method='average', metric=metric)
 f, ax  = meta.make_dendrogram(linked, yticklabels)
-
-'''show RDM '''
-f, ax = plt.subplots(1,1, figsize=(5,4))
-sns.heatmap(np.corrcoef(meta.llc_mean_pattern), square=True, ax=ax)
-ax.set_xlabel('low level event type')
-ax.set_ylabel('low level event type')
 
 '''Transition structure '''
 cpal = sns.color_palette('colorblind', n_colors=5)
