@@ -1,6 +1,6 @@
 # META-loader
 
-This repo contains the useful code to interface with the META data [1]. 
+This repo contains a dataloader to interface with the META data [1]. 
 
 ### useful links to the META data
 
